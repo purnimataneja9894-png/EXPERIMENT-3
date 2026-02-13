@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OOP Visualizer</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+body{
+  font-family:Arial;
+  background:#eceff1;
+  padding:30px;
+}
+.box{
+  background:white;
+  padding:20px;
+  margin-bottom:15px;
+  border-left:6px solid #3f51b5;
+}
+button{
+  padding:8px 12px;
+  background:#3f51b5;
+  color:white;
+  border:none;
+}
+pre{
+  background:#212121;
+  color:#00e676;
+  padding:15px;
+}
+</style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+
+class Person{
+constructor(name){this.name=name;}
+speak(){return "I am "+this.name;}
+}
+
+class Student extends Person{
+speak(){return "Student: "+this.name;}
+}
+
+class Teacher extends Person{
+speak(){return "Teacher: "+this.name;}
+}
+
+function App(){
+
+const [output,setOutput]=React.useState("");
+
+const run=()=>{
+const arr=[
+new Person("Rahul"),
+new Student("Ananya"),
+new Teacher("Iyer")
+];
+
+let text="";
+arr.forEach(p=>{
+text+=p.speak()+"\n";
+});
+setOutput(text);
+};
+
+return(
+<>
+<h2>OOP Hierarchy Visualizer</h2>
+
+<div className="box">
+Person → Student<br/>
+Person → Teacher
+</div>
+
+<button onClick={run}>Run Polymorphism</button>
+
+<pre>{output}</pre>
+</>
+);
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
