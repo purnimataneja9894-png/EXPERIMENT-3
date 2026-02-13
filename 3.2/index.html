@@ -63,4 +63,32 @@ setAuthor("");
 
 const remove=id=>setBooks(books.filter(b=>b.id!==id));
 
-const filtered=boo
+const filtered=books.filter(b=>
+b.title.toLowerCase().includes(search.toLowerCase())
+);
+
+return(
+<div>
+<input placeholder="Search..." onChange={e=>setSearch(e.target.value)}/>
+
+<form onSubmit={handleAdd}>
+<input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title"/>
+<input value={author} onChange={e=>setAuthor(e.target.value)} placeholder="Author"/>
+<button type="submit">Add</button>
+</form>
+
+{filtered.map(b=>(
+<div key={b.id} className="book">
+<strong>{b.title}</strong> - {b.author}
+<button onClick={()=>remove(b.id)}>Remove</button>
+</div>
+))}
+</div>
+);
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+
+</body>
+</html>
