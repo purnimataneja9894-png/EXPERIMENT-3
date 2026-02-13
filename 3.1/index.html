@@ -1,45 +1,66 @@
-<div className="layout">
-  
-  <div className="products">
-    {products.map(product => (
-      <ProductCard 
-        key={product.id}
-        product={product}
-        addToCart={addToCart}
-      />
-    ))}
-  </div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Library Management</title>
 
-  <div className="cart-panel">
-    <h2>🛒 Cart</h2>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    {cart.length === 0 ? (
-      <div className="empty-cart">
-        <p>No items yet</p>
-        <small>Add products to see them here</small>
-      </div>
-    ) : (
-      <>
-        {cart.map(item => (
-          <div key={item.id} className="cart-item">
-            <div>
-              <strong>{item.name}</strong>
-              <p>₹{item.price}</p>
-            </div>
-            <div>
-              <button onClick={() => decreaseQty(item.id)}>-</button>
-              <span>{item.qty}</span>
-              <button onClick={() => increaseQty(item.id)}>+</button>
-              <button onClick={() => removeFromCart(item.id)}>✕</button>
-            </div>
-          </div>
-        ))}
+<style>
+body { font-family: Arial; background:#f4f4f4; margin:0; padding:20px; }
+h1{text-align:center;}
+input{padding:8px;margin:5px;}
+button{padding:8px;margin:5px;cursor:pointer;}
+.book{background:white;padding:10px;margin:10px 0;border-radius:6px;}
+</style>
+</head>
 
-        <div className="total">
-          Total: ₹{cart.reduce((sum, i) => sum + i.price * i.qty, 0)}
-        </div>
-      </>
-    )}
-  </div>
+<body>
+<h1>Library System</h1>
+<div id="root"></div>
 
-</div>
+<script type="text/babel">
+
+function App(){
+
+const initialBooks = [
+{id:1,title:"1984",author:"George Orwell"},
+{id:2,title:"To Kill a Mockingbird",author:"Harper Lee"},
+{id:3,title:"The Great Gatsby",author:"F. Scott Fitzgerald"},
+{id:4,title:"Moby Dick",author:"Herman Melville"},
+{id:5,title:"War and Peace",author:"Leo Tolstoy"},
+{id:6,title:"Pride and Prejudice",author:"Jane Austen"},
+{id:7,title:"The Hobbit",author:"J.R.R. Tolkien"},
+{id:8,title:"The Catcher in the Rye",author:"J.D. Salinger"},
+{id:9,title:"Crime and Punishment",author:"Fyodor Dostoevsky"},
+{id:10,title:"Brave New World",author:"Aldous Huxley"},
+{id:11,title:"The Alchemist",author:"Paulo Coelho"},
+{id:12,title:"The Da Vinci Code",author:"Dan Brown"},
+{id:13,title:"The Shining",author:"Stephen King"},
+{id:14,title:"Harry Potter",author:"J.K. Rowling"},
+{id:15,title:"The Lord of the Rings",author:"J.R.R. Tolkien"},
+{id:16,title:"The Odyssey",author:"Homer"},
+{id:17,title:"The Kite Runner",author:"Khaled Hosseini"},
+{id:18,title:"The Book Thief",author:"Markus Zusak"},
+{id:19,title:"A Tale of Two Cities",author:"Charles Dickens"},
+{id:20,title:"The Hunger Games",author:"Suzanne Collins"}
+];
+
+const [books,setBooks]=React.useState(initialBooks);
+const [title,setTitle]=React.useState("");
+const [author,setAuthor]=React.useState("");
+const [search,setSearch]=React.useState("");
+
+const handleAdd=(e)=>{
+e.preventDefault();
+if(!title||!author)return;
+setBooks([{id:Date.now(),title,author},...books]);
+setTitle("");
+setAuthor("");
+};
+
+const remove=id=>setBooks(books.filter(b=>b.id!==id));
+
+const filtered=boo
