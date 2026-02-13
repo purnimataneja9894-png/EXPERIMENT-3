@@ -1,93 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OOP Visualizer</title>
+<meta charset="UTF-8"/>
+<title>Person Hierarchy</title>
 
 <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 <style>
-body{
-  font-family:Arial;
-  background:#eceff1;
-  padding:30px;
-}
-.box{
-  background:white;
-  padding:20px;
-  margin-bottom:15px;
-  border-left:6px solid #3f51b5;
-}
-button{
-  padding:8px 12px;
-  background:#3f51b5;
-  color:white;
-  border:none;
-}
-pre{
-  background:#212121;
-  color:#00e676;
-  padding:15px;
-}
+body{font-family:Arial;background:#111;color:white;padding:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
+.card{background:#222;padding:20px;border-radius:10px;}
 </style>
 </head>
 
 <body>
+<h1>Person Class Hierarchy</h1>
 <div id="root"></div>
 
 <script type="text/babel">
 
 class Person{
-constructor(name){this.name=name;}
-speak(){return "I am "+this.name;}
+constructor(name,age){
+this.name=name;
+this.age=age;
+}
+describe(){
+return `${this.name}, Age ${this.age}`;
+}
 }
 
 class Student extends Person{
-speak(){return "Student: "+this.name;}
+constructor(name,age,course){
+super(name,age);
+this.course=course;
+}
+describe(){
+return `${super.describe()} | Student of ${this.course}`;
+}
 }
 
 class Teacher extends Person{
-speak(){return "Teacher: "+this.name;}
+constructor(name,age,subject){
+super(name,age);
+this.subject=subject;
+}
+describe(){
+return `${super.describe()} | Teaches ${this.subject}`;
+}
 }
 
 function App(){
 
-const [output,setOutput]=React.useState("");
-
-const run=()=>{
-const arr=[
-new Person("Rahul"),
-new Student("Ananya"),
-new Teacher("Iyer")
+const people=[
+new Student("Aditya",20,"CS"),
+new Student("Riya",21,"Math"),
+new Student("Arjun",22,"Physics"),
+new Student("Sneha",19,"Biology"),
+new Student("Karan",23,"Engineering"),
+new Teacher("Dr Sharma",45,"AI"),
+new Teacher("Prof Iyer",50,"DBMS"),
+new Teacher("Dr Mehta",38,"Cybersecurity"),
+new Teacher("Prof Rao",42,"Cloud"),
+new Teacher("Dr Kapoor",47,"Data Science"),
 ];
 
-let text="";
-arr.forEach(p=>{
-text+=p.speak()+"\n";
-});
-setOutput(text);
-};
-
 return(
-<>
-<h2>OOP Hierarchy Visualizer</h2>
-
-<div className="box">
-Person → Student<br/>
-Person → Teacher
+<div className="grid">
+{people.map((p,i)=>(
+<div key={i} className="card">
+{p.describe()}
 </div>
-
-<button onClick={run}>Run Polymorphism</button>
-
-<pre>{output}</pre>
-</>
+))}
+</div>
 );
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
+
 </body>
 </html>
