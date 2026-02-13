@@ -1,128 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShopZone</title>
+<div className="layout">
+  
+  <div className="products">
+    {products.map(product => (
+      <ProductCard 
+        key={product.id}
+        product={product}
+        addToCart={addToCart}
+      />
+    ))}
+  </div>
 
-<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div className="cart-panel">
+    <h2>🛒 Cart</h2>
 
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#121212;
-  color:white;
-  display:flex;
-}
+    {cart.length === 0 ? (
+      <div className="empty-cart">
+        <p>No items yet</p>
+        <small>Add products to see them here</small>
+      </div>
+    ) : (
+      <>
+        {cart.map(item => (
+          <div key={item.id} className="cart-item">
+            <div>
+              <strong>{item.name}</strong>
+              <p>₹{item.price}</p>
+            </div>
+            <div>
+              <button onClick={() => decreaseQty(item.id)}>-</button>
+              <span>{item.qty}</span>
+              <button onClick={() => increaseQty(item.id)}>+</button>
+              <button onClick={() => removeFromCart(item.id)}>✕</button>
+            </div>
+          </div>
+        ))}
 
-.products{
-  flex:3;
-  padding:30px;
-}
+        <div className="total">
+          Total: ₹{cart.reduce((sum, i) => sum + i.price * i.qty, 0)}
+        </div>
+      </>
+    )}
+  </div>
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:20px;
-}
-
-.card{
-  background:#1e1e1e;
-  padding:15px;
-  border-radius:8px;
-  transition:0.2s;
-}
-.card:hover{
-  transform:scale(1.05);
-}
-
-button{
-  padding:6px 10px;
-  border:none;
-  background:#ff9800;
-  cursor:pointer;
-  margin-top:8px;
-}
-
-.sidebar{
-  flex:1;
-  background:#222;
-  padding:20px;
-  border-left:2px solid #333;
-  min-height:100vh;
-}
-
-.cart-item{
-  margin-bottom:10px;
-}
-
-.total{
-  margin-top:15px;
-  font-weight:bold;
-}
-</style>
-</head>
-
-<body>
-<div id="root"></div>
-
-<script type="text/babel">
-
-function App(){
-
-const products=[
-{id:1,name:"Camera",price:30000},
-{id:2,name:"Tablet",price:20000},
-{id:3,name:"Speaker",price:5000},
-{id:4,name:"Watch",price:8000},
-{id:5,name:"Gaming Console",price:40000}
-];
-
-const [cart,setCart]=React.useState([]);
-
-const add=(p)=>{
-const exist=cart.find(i=>i.id===p.id);
-if(exist){
-setCart(cart.map(i=>i.id===p.id?{...i,qty:i.qty+1}:i));
-}else{
-setCart([...cart,{...p,qty:1}]);
-}
-};
-
-const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
-
-return(
-<>
-<div className="products">
-<h2>ShopZone</h2>
-<div className="grid">
-{products.map(p=>(
-<div key={p.id} className="card">
-<h4>{p.name}</h4>
-<p>₹{p.price}</p>
-<button onClick={()=>add(p)}>Add</button>
 </div>
-))}
-</div>
-</div>
-
-<div className="sidebar">
-<h3>Cart</h3>
-{cart.map(i=>(
-<div key={i.id} className="cart-item">
-{i.name} x{i.qty}
-</div>
-))}
-<div className="total">Total: ₹{total}</div>
-</div>
-</>
-);
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-</script>
-</body>
-</html>
