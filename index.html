@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiment 3 – React Applications</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 15px;
+      transition: 0.4s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.03);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>EXPERIMENT – 3</h1>
+
+    <div class="grid">
+
+      <a href="3.1/" class="card">
+        <h2>3.1 – ProductCard Component</h2>
+        <p>Reusable component with props, stock status & cart interaction</p>
+      </a>
+
+      <a href="3.2/" class="card">
+        <h2>3.2 – Library Management UI</h2>
+        <p>CRUD operations with search, add & remove functionality</p>
+      </a>
+
+      <a href="3.3/" class="card">
+        <h2>3.3 – Person Class Hierarchy</h2>
+        <p>OOP with inheritance, polymorphism & dynamic rendering</p>
+      </a>
+
+    </div>
+
+    <footer>
+      Full Stack Development – React Experiments
+    </footer>
+  </div>
+
+</body>
+</html>
